@@ -3,6 +3,9 @@ package sandrohc.gui;
 import sandrohc.Sumario;
 
 import javax.swing.*;
+import java.awt.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -34,6 +37,13 @@ public class GuiMain {
 		this.sumIndex = index;
 
 		populate();
+
+		sumarios.addPropertyChangeListener(new PropertyChangeListener() {
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) {
+				atualizarSum(sumarios.getSelectedIndex());
+			}
+		});
 	}
 
 	public void run() {
@@ -46,8 +56,11 @@ public class GuiMain {
 
 	public void populate() {
 		licoesField.setText(Arrays.toString(sum.licoes).replace("[", "").replace("]", ""));
+		planificacao.setText(sum.planificacao);
 
 		sumarios.setSelectedIndex(sumIndex);
+		System.out.println(sumarios.getFixedCellWidth());
+		System.out.println(sumarios.getFixedCellHeight());
 
 		atualizarData();
 		dataDia.setSelectedIndex(dataDia.getSelectedIndex() != -1 ? dataDia.getSelectedIndex() : 0);
@@ -57,6 +70,8 @@ public class GuiMain {
 
 	private void createUIComponents() {
 		sumarios = new JList<>(gerarSumLista());
+		sumarios.setFixedCellWidth(150);
+		sumarios.setFixedCellHeight(350);
 
 		atualizarData();
 	}
@@ -107,5 +122,21 @@ public class GuiMain {
 		else
 			System.out.println("Sumário não contém uma data válida, usando a data atual.");
 		return dateFormat.format(cal.getTime());
+	}
+
+	private void atualizarSum(int index) {
+		// Previne dados inválida
+		if(index == -1 || index > LISTA.size())
+			return;
+
+		System.out.println("Sumário antigo : " + Arrays.toString(sum.licoes));
+
+		sumIndex = index;
+		sum = LISTA.get(index);
+
+		System.out.println("Sumário novo : " + Arrays.toString(sum.licoes));
+
+		populate();
+		atualizarData();
 	}
 }

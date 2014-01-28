@@ -64,10 +64,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Main.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Main.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/sandrohc/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="54" selection-start="515" selection-end="515" vertical-scroll-proportion="0.53816795" vertical-offset="24" max-vertical-offset="935">
+            <state line="20" column="0" selection-start="647" selection-end="647" vertical-scroll-proportion="0.0" vertical-offset="68" max-vertical-offset="935">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -78,13 +78,16 @@
       <file leaf-file-name="GuiMain.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/sandrohc/gui/GuiMain.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="82" column="39" selection-start="2263" selection-end="2263" vertical-scroll-proportion="0.0" vertical-offset="1045" max-vertical-offset="1819">
-              <folding />
+            <state line="73" column="41" selection-start="2153" selection-end="2153" vertical-scroll-proportion="0.0" vertical-offset="680" max-vertical-offset="2295">
+              <folding>
+                <element signature="e#1024#1180#0" expanded="true" />
+                <element signature="e#1175#1176#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GuiMain.form" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="GuiMain.form" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/sandrohc/gui/GuiMain.form">
           <provider selected="true" editor-type-id="ui-designer">
             <state />
@@ -111,9 +114,9 @@
         <option value="$PROJECT_DIR$/sumarios.json" />
         <option value="$PROJECT_DIR$/src/main/java/sandrohc/Sumario.java" />
         <option value="$PROJECT_DIR$/src/main/java/sandrohc/handlers/GsonHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/java/sandrohc/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/sandrohc/gui/GuiMain.java" />
         <option value="$PROJECT_DIR$/src/main/java/sandrohc/gui/GuiMain.form" />
-        <option value="$PROJECT_DIR$/src/main/java/sandrohc/Main.java" />
       </list>
     </option>
   </component>
@@ -137,7 +140,7 @@
     <option name="STATE" value="0" />
   </component>
   <component name="ProjectView">
-    <navigator proportions="" version="1" splitterProportion="0.5">
+    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -148,7 +151,74 @@
       <autoscrollFromSource />
       <sortByType />
     </navigator>
-    <panes />
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Sumários o' Plenty" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Sumários o' Plenty" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Sumários o' Plenty" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Sumários o' Plenty" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Sumários o' Plenty" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Sumários o' Plenty" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Sumários o' Plenty" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sandrohc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="GoToClass.includeLibraries" value="false" />
@@ -157,7 +227,7 @@
     <property name="MemberChooser.sorted" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="MemberChooser.copyJavadoc" value="false" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="options.lastSelected" value="reference.settings.ide.settings.spelling" />
@@ -169,6 +239,8 @@
     <property name="restartRequiresConfirmation" value="true" />
     <property name="dynamic.classpath" value="false" />
     <property name="FullScreen" value="false" />
+    <property name="OverrideImplement.combined" value="true" />
+    <property name="OverrideImplement.overriding.sorted" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -353,17 +425,16 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1296" height="1000" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28998384" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28998384" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.226979" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.226979" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32988507" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35287356" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35287356" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -377,6 +448,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32988507" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32988507" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
@@ -407,6 +479,54 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/main/java/sandrohc/Main.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="54" selection-start="515" selection-end="515" vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="935">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/sandrohc/gui/GuiMain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="82" column="39" selection-start="2263" selection-end="2263" vertical-scroll-proportion="0.0" vertical-offset="1394" max-vertical-offset="1972">
+          <folding>
+            <element signature="e#1024#1180#0" expanded="true" />
+            <element signature="e#1175#1176#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/sandrohc/gui/GuiMain.form">
+      <provider selected="true" editor-type-id="ui-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/sandrohc/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="54" selection-start="515" selection-end="515" vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="935">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/sandrohc/gui/GuiMain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="82" column="39" selection-start="2263" selection-end="2263" vertical-scroll-proportion="0.0" vertical-offset="1394" max-vertical-offset="1972">
+          <folding>
+            <element signature="e#1024#1180#0" expanded="true" />
+            <element signature="e#1175#1176#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/sandrohc/gui/GuiMain.form">
+      <provider selected="true" editor-type-id="ui-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/sandrohc/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state line="15" column="8" selection-start="385" selection-end="385" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="680">
           <folding>
             <element signature="imports" expanded="true" />
@@ -423,9 +543,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sumarios.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="46" selection-start="65" selection-end="65" vertical-scroll-proportion="0.0" vertical-offset="34" max-vertical-offset="187">
-          <folding />
-        </state>
+        <state line="2" column="46" selection-start="65" selection-end="65" vertical-scroll-proportion="0.0" vertical-offset="34" max-vertical-offset="187" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sandrohc/gui/GuiMain.form">
@@ -436,7 +554,10 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/sandrohc/gui/GuiMain.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="51" column="40" selection-start="1311" selection-end="1311" vertical-scroll-proportion="0.0" vertical-offset="663" max-vertical-offset="1377">
-          <folding />
+          <folding>
+            <element signature="e#1024#1180#0" expanded="true" />
+            <element signature="e#1175#1176#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -468,9 +589,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sandrohc/Sumario.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="8" selection-start="8" selection-end="8" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
-          <folding />
-        </state>
+        <state line="0" column="8" selection-start="8" selection-end="8" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sandrohc/Main.java">
@@ -489,9 +608,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sandrohc/Sumario.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="24" selection-start="170" selection-end="170" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="357">
-          <folding />
-        </state>
+        <state line="9" column="24" selection-start="170" selection-end="170" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="357" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sandrohc/handlers/GsonHandler.java">
@@ -518,44 +635,27 @@
     </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.7.0_51/src.zip!/java/lang/System.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="106" column="36" selection-start="3224" selection-end="3224" vertical-scroll-proportion="0.3326613" vertical-offset="1008" max-vertical-offset="19992">
-          <folding />
-        </state>
+        <state line="106" column="36" selection-start="3224" selection-end="3224" vertical-scroll-proportion="0.3326613" vertical-offset="1008" max-vertical-offset="19992" />
       </provider>
     </entry>
     <entry file="jar://$PROJECT_DIR$/lib/gson-2.2.4/gson-2.2.4-sources.jar!/com/google/gson/Gson.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="460" column="21" selection-start="19752" selection-end="19752" vertical-scroll-proportion="0.024193548" vertical-offset="6958" max-vertical-offset="14637">
-          <folding />
-        </state>
+        <state line="460" column="21" selection-start="19752" selection-end="19752" vertical-scroll-proportion="0.024193548" vertical-offset="6958" max-vertical-offset="14637" />
       </provider>
     </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.7.0_51/src.zip!/java/util/Arrays.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3369" column="25" selection-start="149131" selection-end="149131" vertical-scroll-proportion="0.3329384" vertical-offset="56601" max-vertical-offset="62152">
-          <folding />
-        </state>
+        <state line="3369" column="25" selection-start="149131" selection-end="149131" vertical-scroll-proportion="0.3329384" vertical-offset="56601" max-vertical-offset="62152" />
       </provider>
     </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.7.0_51/src.zip!/javax/swing/ListSelectionModel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="137" column="8" selection-start="4184" selection-end="4184" vertical-scroll-proportion="0.3326613" vertical-offset="1773" max-vertical-offset="5015">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.7.0_51/src.zip!/javax/swing/JList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1988" column="47" selection-start="75835" selection-end="75835" vertical-scroll-proportion="0.3669355" vertical-offset="32254" max-vertical-offset="62135">
-          <folding />
-        </state>
+        <state line="137" column="8" selection-start="4184" selection-end="4184" vertical-scroll-proportion="0.3326613" vertical-offset="1773" max-vertical-offset="5015" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sandrohc/Sumario.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="16" selection-start="103" selection-end="103" vertical-scroll-proportion="0.20564516" vertical-offset="0" max-vertical-offset="496">
-          <folding />
-        </state>
+        <state line="6" column="16" selection-start="103" selection-end="103" vertical-scroll-proportion="0.20564516" vertical-offset="0" max-vertical-offset="496" />
       </provider>
     </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.7.0_51/jre/lib/rt.jar!/sun/util/calendar/CalendarDate.class">
@@ -565,16 +665,12 @@
     </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.7.0_51/src.zip!/java/util/Date.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="684" column="30" selection-start="30020" selection-end="30020" vertical-scroll-proportion="0.57258064" vertical-offset="10766" max-vertical-offset="22151">
-          <folding />
-        </state>
+        <state line="684" column="30" selection-start="30020" selection-end="30020" vertical-scroll-proportion="0.57258064" vertical-offset="10766" max-vertical-offset="22151" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sumarios.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="46" selection-start="65" selection-end="65" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="187">
-          <folding />
-        </state>
+        <state line="2" column="46" selection-start="65" selection-end="65" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="187" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sandrohc/handlers/GsonHandler.java">
@@ -586,30 +682,38 @@
     </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.7.0_51/src.zip!/java/util/Calendar.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="309" column="22" selection-start="14308" selection-end="14308" vertical-scroll-proportion="-1.2811918" vertical-offset="5040" max-vertical-offset="46903">
+        <state line="309" column="22" selection-start="14308" selection-end="14308" vertical-scroll-proportion="-1.2811918" vertical-offset="5040" max-vertical-offset="46903" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/sandrohc/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="0" selection-start="647" selection-end="647" vertical-scroll-proportion="0.0" vertical-offset="68" max-vertical-offset="935">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.7.0_51/src.zip!/javax/swing/JList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="670" column="29" selection-start="24339" selection-end="24353" vertical-scroll-proportion="0.99813783" vertical-offset="9885" max-vertical-offset="62135">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sandrohc/gui/GuiMain.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="82" column="39" selection-start="2263" selection-end="2263" vertical-scroll-proportion="0.0" vertical-offset="1045" max-vertical-offset="1819">
-          <folding />
+        <state line="73" column="41" selection-start="2153" selection-end="2153" vertical-scroll-proportion="0.0" vertical-offset="680" max-vertical-offset="2295">
+          <folding>
+            <element signature="e#1024#1180#0" expanded="true" />
+            <element signature="e#1175#1176#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sandrohc/gui/GuiMain.form">
       <provider selected="true" editor-type-id="ui-designer">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/sandrohc/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="54" selection-start="515" selection-end="515" vertical-scroll-proportion="0.53816795" vertical-offset="24" max-vertical-offset="935">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
       </provider>
     </entry>
   </component>
