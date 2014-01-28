@@ -46,6 +46,9 @@ public class GuiMain {
 		});
 	}
 
+	/**
+	 * Cria a GUI
+	 */
 	public void run() {
 		JFrame frame = new JFrame("Sumários o' Plenty");
 		frame.setContentPane(panel);
@@ -54,13 +57,14 @@ public class GuiMain {
 		frame.setVisible(true);
 	}
 
+	/**
+	 * Atualiza a informação presente nos componentes da GUI
+	 */
 	public void populate() {
 		licoesField.setText(Arrays.toString(sum.licoes).replace("[", "").replace("]", ""));
 		planificacao.setText(sum.planificacao);
 
 		sumarios.setSelectedIndex(sumIndex);
-		System.out.println(sumarios.getFixedCellWidth());
-		System.out.println(sumarios.getFixedCellHeight());
 
 		atualizarData();
 		dataDia.setSelectedIndex(dataDia.getSelectedIndex() != -1 ? dataDia.getSelectedIndex() : 0);
@@ -68,10 +72,13 @@ public class GuiMain {
 		dataAno.setSelectedIndex(dataAno.getSelectedIndex() != -1 ? dataAno.getSelectedIndex() : 0);
 	}
 
+	/**
+	 * Cria os componentes básicos da GUI
+	 */
 	private void createUIComponents() {
 		sumarios = new JList<>(gerarSumLista());
-		sumarios.setFixedCellWidth(150);
-		sumarios.setFixedCellHeight(350);
+//		sumarios.setFixedCellWidth(150);
+//		sumarios.setFixedCellHeight(350);
 
 		atualizarData();
 	}
@@ -84,6 +91,13 @@ public class GuiMain {
 		dataAno = new JComboBox<>(gerarArray(2014, 2015));
 	}
 
+	/**
+	 * Gera uma array desde o valor mínimo até o valor máximo, ambos passados nos argumentos.
+	 *
+	 * @param min valor mínimo
+	 * @param max valor máximo
+	 * @return array com valores desde o @param min até o @param max
+	 */
 	private String[] gerarArray(int min, int max) {
 		int size = Math.abs(min - max);
 		String[] array = new String[size + 1];
@@ -94,6 +108,11 @@ public class GuiMain {
 		return array;
 	}
 
+	/**
+	 * Gera uma array no formato "Lições - Data" de todos os sumários
+	 *
+	 * @return array com informação de todos os sumários
+	 */
 	private String[] gerarSumLista() {
 		String[] lista = new String[LISTA.size()];
 		for(byte i = 0; i < LISTA.size(); i++) {
@@ -124,6 +143,11 @@ public class GuiMain {
 		return dateFormat.format(cal.getTime());
 	}
 
+	/**
+	 * Altera o sumário para o encontrado na posição passada nos argumentos
+	 *
+	 * @param index posição na lista de sumários
+	 */
 	private void atualizarSum(int index) {
 		// Previne dados inválida
 		if(index == -1 || index > LISTA.size())
@@ -138,5 +162,17 @@ public class GuiMain {
 
 		populate();
 		atualizarData();
+	}
+
+	/**
+	 * Remove o sumário na posição passada nos argumentos
+	 *
+	 * @param index posição na lista de sumários
+	 */
+	private void removerSum(int index) {
+		LISTA.remove(index);
+		sumarios.remove(index);
+
+		atualizarSum(index);
 	}
 }
