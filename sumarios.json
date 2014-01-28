@@ -1,0 +1,6 @@
+{
+   "sumarios": [
+        { "licoes": ["1","2"], "data": 1390843491459, "planificacao": "plan1" },
+        { "licoes": ["3","4"], "data": 1390845491459, "planificacao": "plan2" }
+   ]
+}
