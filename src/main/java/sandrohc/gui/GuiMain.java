@@ -1,5 +1,6 @@
 package sandrohc.gui;
 
+import sandrohc.Main;
 import sandrohc.Sumario;
 
 import javax.swing.*;
@@ -77,9 +78,6 @@ public class GuiMain extends JFrame {
 		planificacao.setText(sum.planificacao);
 
 		atualizarData();
-		dataDia.setSelectedIndex(dataDia.getSelectedIndex() != -1 ? dataDia.getSelectedIndex() : 0);
-		dataMes.setSelectedIndex(dataMes.getSelectedIndex() != -1 ? dataMes.getSelectedIndex() : 0);
-		dataAno.setSelectedIndex(dataAno.getSelectedIndex() != -1 ? dataAno.getSelectedIndex() : 0);
 	}
 
 	/**
@@ -92,15 +90,22 @@ public class GuiMain extends JFrame {
 	}
 
 	private void atualizarData() {
-		if(sum == null)
-			sum = new Sumario(null, 0, null);
+		if(sum == null) {
+			dataDia = new JComboBox<>(new String[]{"1"});
+			dataMes = new JComboBox<>(new String[]{"1"});
+			dataAno = new JComboBox<>(new String[]{"1"});
+			return;
+		}
 
-		dataDia = new JComboBox<>(gerarArray(1, maxDias[obterMes(sum.data)]));
-//		dataDia.setSelectedIndex(obterDia(sum.data));
-		dataMes = new JComboBox<>(gerarArray(1, 12));
-		dataMes.setSelectedIndex(obterMes(sum.data));
-		dataAno = new JComboBox<>(gerarArray(2014, 2015));
-//		dataAno.setSelectedIndex(obterAno(sum.data) - 2014);
+		int mes = obterMes(sum.data);
+
+		dataDia.setModel(new DefaultComboBoxModel<>(gerarArray(1, maxDias[mes])));
+		dataMes.setModel(new DefaultComboBoxModel<>(gerarArray(1, 12)));
+		dataAno.setModel(new DefaultComboBoxModel<>(gerarArray(2014, 2015)));
+
+		dataDia.setSelectedItem(obterDia(sum.data));
+		dataMes.setSelectedItem(mes + 1);
+		dataAno.setSelectedItem(obterAno(sum.data));
 	}
 
 	/**
@@ -177,15 +182,13 @@ public class GuiMain extends JFrame {
 		if(index == -1 || index > LISTA.size())
 			return;
 
-		System.out.println("Sumário antigo : " + Arrays.toString(sum.licoes));
-
 		sumIndex = index;
 		sum = LISTA.get(index);
 
-		System.out.println("Sumário novo : " + Arrays.toString(sum.licoes));
+		System.out.println(" - -- -- -- - ");
 
 		populate();
-		atualizarData();
+		revalidate();
 	}
 
 	/**
@@ -215,12 +218,11 @@ public class GuiMain extends JFrame {
 		cal.set(Calendar.SECOND, 0);
 		cal.set(Calendar.MILLISECOND, 0);
 
+		System.out.println("Dia : " + dataDia.getSelectedItem());
 		cal.set(Calendar.DAY_OF_MONTH, Integer.valueOf((String) dataDia.getSelectedItem()));
-		System.out.println("Mês : " + dataMes.getSelectedItem());
-		cal.set(Calendar.MONTH, Integer.valueOf((String) dataMes.getSelectedItem()));
+		cal.set(Calendar.MONTH, dataMes.getSelectedIndex());
 		cal.set(Calendar.YEAR, Integer.valueOf((String) dataAno.getSelectedItem()));
-		System.out.println("Data : " + cal.getTimeInMillis());
-		System.out.println("Data : " + obterData(new Sumario(null, cal.getTimeInMillis(), null)));
+		System.out.println("Data : " + obterData(new Sumario(null, cal.getTimeInMillis(), null)) + " - " + cal.getTimeInMillis());
 		return cal.getTimeInMillis();
 	}
 
@@ -231,5 +233,8 @@ public class GuiMain extends JFrame {
 		sum.licoes = licoesToArr();
 		sum.data = dataToMillis();
 		sum.planificacao = planificacao.getText();
+
+		Main.LISTA.remove(sumIndex);
+		Main.LISTA.set(sumIndex, sum);
 	}
 }
