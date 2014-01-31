@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="sandrohc.gui.GuiMain">
-  <grid id="27dc6" binding="panel" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="panel" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
       <xy x="20" y="20" width="514" height="415"/>
@@ -13,10 +13,10 @@
     </properties>
     <border type="none"/>
     <children>
-      <grid id="c47d0" binding="curr" layout-manager="GridLayoutManager" row-count="3" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="c47d0" binding="curr" layout-manager="GridLayoutManager" row-count="4" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="5" left="5" bottom="5" right="5"/>
         <constraints>
-          <grid row="0" column="1" row-span="2" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+          <grid row="0" column="0" row-span="2" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="340" height="340"/>
             <maximum-size width="1000" height="1000"/>
           </grid>
@@ -28,7 +28,7 @@
         </properties>
         <border type="none"/>
         <children>
-          <component id="e79be" class="javax.swing.JComboBox" binding="licoesField">
+          <component id="e79be" class="javax.swing.JComboBox" binding="licoesField" custom-create="true">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -53,16 +53,15 @@
               <text value="Data"/>
             </properties>
           </component>
-          <component id="9f7fe" class="javax.swing.JComboBox" binding="dataDia" custom-create="true">
+          <component id="5256" class="javax.swing.JComboBox" binding="dataMes" custom-create="true">
             <constraints>
-              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="2" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
+              <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="2" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
                 <maximum-size width="-1" height="25"/>
               </grid>
             </constraints>
             <properties>
-              <model/>
               <opaque value="false"/>
-              <toolTipText value="Dia"/>
+              <toolTipText value="Mês"/>
             </properties>
           </component>
           <component id="b87b8" class="javax.swing.JComboBox" binding="dataAno" custom-create="true">
@@ -74,17 +73,6 @@
             <properties>
               <opaque value="false"/>
               <toolTipText value="Ano"/>
-            </properties>
-          </component>
-          <component id="5256" class="javax.swing.JComboBox" binding="dataMes" custom-create="true">
-            <constraints>
-              <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="2" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                <maximum-size width="-1" height="25"/>
-              </grid>
-            </constraints>
-            <properties>
-              <opaque value="false"/>
-              <toolTipText value="Mês"/>
             </properties>
           </component>
           <component id="9c2a7" class="javax.swing.JTextArea" binding="planificacao">
@@ -102,28 +90,35 @@
               <wrapStyleWord value="true"/>
             </properties>
           </component>
+          <component id="915a8" class="javax.swing.JComboBox" binding="dataDia" custom-create="true">
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="2" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                <maximum-size width="-1" height="25"/>
+              </grid>
+            </constraints>
+            <properties>
+              <opaque value="false"/>
+              <toolTipText value="Dia"/>
+            </properties>
+          </component>
+          <component id="3c28f" class="javax.swing.JButton" binding="btnAdd">
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Adicionar"/>
+            </properties>
+          </component>
+          <component id="57da1" class="javax.swing.JButton" binding="btnSalvar">
+            <constraints>
+              <grid row="3" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Guardar"/>
+            </properties>
+          </component>
         </children>
       </grid>
-      <component id="a5537" class="javax.swing.JList" binding="sumarios" custom-create="true" default-binding="true">
-        <constraints>
-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="2" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <minimum-size width="150" height="350"/>
-            <preferred-size width="150" height="350"/>
-            <maximum-size width="-1" height="5000"/>
-          </grid>
-        </constraints>
-        <properties>
-          <maximumSize width="-1" height="-1"/>
-          <minimumSize width="-1" height="-1"/>
-          <model>
-            <item value="Teste"/>
-            <item value="Teste2"/>
-          </model>
-          <opaque value="false"/>
-          <preferredSize width="-1" height="-1"/>
-          <selectionMode value="0"/>
-        </properties>
-      </component>
     </children>
   </grid>
 </form>

@@ -3,8 +3,10 @@ package sandrohc.gui;
 import sandrohc.Sumario;
 
 import javax.swing.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -14,170 +16,220 @@ import java.util.Date;
 import static sandrohc.Main.LISTA;
 
 public class GuiMain extends JFrame {
-    private byte[] maxDias = {31, 28, 31, 30, 31, 30, 31, 30, 31, 30, 31, 30};
+	private byte[] maxDias = { 31, 28, 31, 30, 31, 30, 31, 30, 31, 30, 31, 30 };
 
-    private JPanel panel;
-    private JList<String> sumarios;
-    private JComboBox licoesField;
-    private JLabel licoes;
-    private JLabel data;
-    private JComboBox<String> dataDia;
-    private JComboBox<String> dataMes;
-    private JComboBox<String> dataAno;
-    private JPanel curr;
-    private JTextArea planificacao;
+	private JPanel panel;
+	private JComboBox licoesField;
+	private JLabel licoes;
+	private JLabel data;
+	private JComboBox<String> dataDia;
+	private JComboBox<String> dataMes;
+	private JComboBox<String> dataAno;
+	private JPanel curr;
+	private JTextArea planificacao;
+	private JButton btnAdd;
+	private JButton btnSalvar;
 
-    private Sumario sum;
-    private int sumIndex;
+	private Sumario sum;
+	private int sumIndex;
 
-    public GuiMain(int index) {
-        this.sum = LISTA.size() >= index && LISTA.get(index) == null ? LISTA.get(0) : LISTA.get(index);
-        this.sumIndex = index;
+	public GuiMain(int index) {
+		this.sum = LISTA.size() >= index && LISTA.get(index) == null ? LISTA.get(0) : LISTA.get(index);
+		this.sumIndex = index;
 
-        populate();
+		populate();
 
-        sumarios.addPropertyChangeListener(new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                atualizarSum(sumarios.getSelectedIndex());
-            }
-        });
+		// Mostra a GUI no final do cosntrutor
+		run();
 
-        // Mostra a GUI no final do cosntrutor
-        run();
-    }
+		licoesField.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent evt) {
+				if(evt.getStateChange() == ItemEvent.SELECTED)
+					atualizarSum(licoesField.getSelectedIndex());
+			}
+		});
+		btnSalvar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				salvarDados();
+			}
+		});
+	}
 
-    /**
-     * Cria a GUI
-     */
-    public void run() {
-        JFrame frame = new JFrame("Sumários o' Plenty");
-        frame.setContentPane(panel);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
-    }
+	/**
+	 * Cria a GUI
+	 */
+	public void run() {
+		JFrame frame = new JFrame("Sumários o' Plenty");
+		frame.setContentPane(panel);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.pack();
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+	}
 
-    /**
-     * Atualiza a informação presente nos componentes da GUI
-     */
-    public void populate() {
-        //licoesField.setText(Arrays.toString(sum.licoes).replace("[", "").replace("]", ""));
-        planificacao.setText(sum.planificacao);
+	/**
+	 * Atualiza a informação presente nos componentes da GUI
+	 */
+	public void populate() {
+		licoesField.setSelectedIndex(sumIndex);
+		planificacao.setText(sum.planificacao);
 
-        //sumarios = new JList<>();
-        sumarios.setSelectedIndex(sumIndex);
+		atualizarData();
+		dataDia.setSelectedIndex(dataDia.getSelectedIndex() != -1 ? dataDia.getSelectedIndex() : 0);
+		dataMes.setSelectedIndex(dataMes.getSelectedIndex() != -1 ? dataMes.getSelectedIndex() : 0);
+		dataAno.setSelectedIndex(dataAno.getSelectedIndex() != -1 ? dataAno.getSelectedIndex() : 0);
+	}
 
-        atualizarData();
-        dataDia.setSelectedIndex(dataDia.getSelectedIndex() != -1 ? dataDia.getSelectedIndex() : 0);
-        dataMes.setSelectedIndex(dataMes.getSelectedIndex() != -1 ? dataMes.getSelectedIndex() : 0);
-        dataAno.setSelectedIndex(dataAno.getSelectedIndex() != -1 ? dataAno.getSelectedIndex() : 0);
-    }
+	/**
+	 * Cria os componentes básicos da GUI
+	 */
+	private void createUIComponents() {
+		licoesField = new JComboBox<>(gerarSumLista());
 
-    /**
-     * Cria os componentes básicos da GUI
-     */
-    private void createUIComponents() {
-        sumarios = new JList<>(gerarSumLista());
+		atualizarData();
+	}
 
-        //DefaultListModel<String> listModel = new DefaultListModel<>();
-        //for(String str : gerarSumLista())
-        //    listModel.addElement(str);
-        //sumarios.setModel(listModel);
+	private void atualizarData() {
+		if(sum == null)
+			sum = new Sumario(null, 0, null);
 
-        atualizarData();
-    }
+		dataDia = new JComboBox<>(gerarArray(1, maxDias[obterMes(sum.data)]));
+//		dataDia.setSelectedIndex(obterDia(sum.data));
+		dataMes = new JComboBox<>(gerarArray(1, 12));
+		dataMes.setSelectedIndex(obterMes(sum.data));
+		dataAno = new JComboBox<>(gerarArray(2014, 2015));
+//		dataAno.setSelectedIndex(obterAno(sum.data) - 2014);
+	}
 
-    private void atualizarData() {
-        int mesAct = dataMes != null && dataMes.getSelectedIndex() != -1 ? dataMes.getSelectedIndex() : obterMes() - 1;
+	/**
+	 * Gera uma array desde o valor mínimo até o valor máximo, ambos passados nos argumentos.
+	 *
+	 * @param min valor mínimo
+	 * @param max valor máximo
+	 * @return array com valores desde o @param min até o @param max
+	 */
+	private String[] gerarArray(int min, int max) {
+		int size = Math.abs(min - max);
+		String[] array = new String[size + 1];
 
-        dataDia = new JComboBox<>(gerarArray(1, maxDias[mesAct]));
-        dataMes = new JComboBox<>(gerarArray(1, 12));
-        dataAno = new JComboBox<>(gerarArray(2014, 2015));
-    }
+		for(int i = 0; i <= size; i++)
+			array[i] = String.valueOf(i + min);
 
-    /**
-     * Gera uma array desde o valor mínimo até o valor máximo, ambos passados nos argumentos.
-     *
-     * @param min valor mínimo
-     * @param max valor máximo
-     * @return array com valores desde o @param min até o @param max
-     */
-    private String[] gerarArray(int min, int max) {
-        int size = Math.abs(min - max);
-        String[] array = new String[size + 1];
+		return array;
+	}
 
-        for (int i = 0; i <= size; i++)
-            array[i] = String.valueOf(i + min);
+	/**
+	 * Gera uma array no formato "Lições - Data" de todos os sumários
+	 *
+	 * @return array com informação de todos os sumários
+	 */
+	private String[] gerarSumLista() {
+		String[] lista = new String[LISTA.size()];
+		for(byte i = 0; i < LISTA.size(); i++) {
+			Sumario sum = LISTA.get(i);
+			lista[i] = Arrays.toString(sum.licoes).replace("[", "").replace("]", "");// + " - " + obterData(sum);
+		}
+		System.out.println("Lista : " + Arrays.toString(lista));
+		return lista;
+	}
 
-        return array;
-    }
+	private int obterDia(long data) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date(data));
+		System.out.println("Dia : " + cal.get(Calendar.DAY_OF_MONTH));
+		return cal.get(Calendar.DAY_OF_MONTH);
+	}
 
-    /**
-     * Gera uma array no formato "Lições - Data" de todos os sumários
-     *
-     * @return array com informação de todos os sumários
-     */
-    private String[] gerarSumLista() {
-        String[] lista = new String[LISTA.size()];
-        for (byte i = 0; i < LISTA.size(); i++) {
-            Sumario sum = LISTA.get(i);
-            lista[i] = Arrays.toString(sum.licoes).replace("[", "").replace("]", "") + " - " + obterData(sum);
-        }
-        System.out.println("Lista : " + Arrays.toString(lista));
-        return lista;
-    }
+	private int obterMes(long data) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date(data));
+		System.out.println("Mês : " + cal.get(Calendar.MONTH));
+		return cal.get(Calendar.MONTH);
+	}
 
-    private int obterMes() {
-        Calendar cal = Calendar.getInstance();
-        if (sum != null)
-            cal.setTime(new Date(sum.data));
-        else
-            System.out.println("Sumário não contém uma data válida, usando a data atual.");
-        return cal.get(Calendar.MONTH) + 1;
-    }
+	private int obterAno(long data) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date(data));
+		System.out.println("Ano : " + cal.get(Calendar.YEAR));
+		return cal.get(Calendar.YEAR);
+	}
 
-    private String obterData(Sumario sum) {
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+	private String obterData(Sumario sum) {
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-        Calendar cal = Calendar.getInstance();
-        if (sum != null)
-            cal.setTime(new Date(sum.data));
-        else
-            System.out.println("Sumário não contém uma data válida, usando a data atual.");
-        return dateFormat.format(cal.getTime());
-    }
+		Calendar cal = Calendar.getInstance();
+		if(sum != null)
+			cal.setTime(new Date(sum.data));
+		else
+			System.out.println("Sumário não contém uma data válida, usando a data atual.");
+		return dateFormat.format(cal.getTime());
+	}
 
-    /**
-     * Altera o sumário para o encontrado na posição passada nos argumentos
-     *
-     * @param index posição na lista de sumários
-     */
-    private void atualizarSum(int index) {
-        // Previne dados inválida
-        if (index == -1 || index > LISTA.size())
-            return;
+	/**
+	 * Altera o sumário para o encontrado na posição passada nos argumentos
+	 *
+	 * @param index posição na lista de sumários
+	 */
+	private void atualizarSum(int index) {
+		// Previne dados inválida
+		if(index == -1 || index > LISTA.size())
+			return;
 
-        System.out.println("Sumário antigo : " + Arrays.toString(sum.licoes));
+		System.out.println("Sumário antigo : " + Arrays.toString(sum.licoes));
 
-        sumIndex = index;
-        sum = LISTA.get(index);
+		sumIndex = index;
+		sum = LISTA.get(index);
 
-        System.out.println("Sumário novo : " + Arrays.toString(sum.licoes));
+		System.out.println("Sumário novo : " + Arrays.toString(sum.licoes));
 
-        populate();
-        atualizarData();
-    }
+		populate();
+		atualizarData();
+	}
 
-    /**
-     * Remove o sumário na posição passada nos argumentos
-     *
-     * @param index posição na lista de sumários
-     */
-    private void removerSum(int index) {
-        LISTA.remove(index);
-        sumarios.remove(index);
+	/**
+	 * Remove o sumário na posição passada nos argumentos
+	 *
+	 * @param index posição na lista de sumários
+	 */
+	private void removerSum(int index) {
+		LISTA.remove(index);
+		licoesField.remove(index);
 
-        atualizarSum(index);
-    }
+		atualizarSum(index);
+	}
+
+	private short[] licoesToArr() {
+		String[] texto = licoesField.getSelectedItem().toString().split(", ");
+		short[] licoes = new short[texto.length];
+		for(int i = 0; i < texto.length; i++) {
+			licoes[i] = Short.parseShort(texto[i]);
+		}
+		return licoes;
+	}
+
+	private long dataToMillis() {
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+
+		cal.set(Calendar.DAY_OF_MONTH, Integer.valueOf((String) dataDia.getSelectedItem()));
+		System.out.println("Mês : " + dataMes.getSelectedItem());
+		cal.set(Calendar.MONTH, Integer.valueOf((String) dataMes.getSelectedItem()));
+		cal.set(Calendar.YEAR, Integer.valueOf((String) dataAno.getSelectedItem()));
+		System.out.println("Data : " + cal.getTimeInMillis());
+		System.out.println("Data : " + obterData(new Sumario(null, cal.getTimeInMillis(), null)));
+		return cal.getTimeInMillis();
+	}
+
+	private void salvarDados() {
+		if(sum == null)
+			sum = new Sumario(null, 0, null);
+
+		sum.licoes = licoesToArr();
+		sum.data = dataToMillis();
+		sum.planificacao = planificacao.getText();
+	}
 }
