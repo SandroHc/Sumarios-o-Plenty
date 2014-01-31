@@ -30,7 +30,7 @@ public class Main {
 		GsonHandler.deserialize(jObj);
 
 		// Inicia a GUI
-		new GuiMain(0).run();
+		new GuiMain(0);
 
 		// Grava os dados da Lista no JSON
 		GsonHandler.serialize();

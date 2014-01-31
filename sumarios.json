@@ -1,6 +1,7 @@
 {
    "sumarios": [
-        { "licoes": ["1","2"], "data": 1390843491459, "planificacao": "plan1" },
-        { "licoes": ["3","4"], "data": 1390845491459, "planificacao": "plan2" }
+		{ "licoes": ["35","36"], "data": 1390845491459, "planificacao": "Continuação da resolução da ficha de trabalho nº2 - manipulação de ficheiros binários\nEsclarecimento de dúvidas" },
+		{ "licoes": ["37","38"], "data": 1390845491459, "planificacao": "Prova de avaliação sumativa." },
+		{ "licoes": ["39","40"], "data": 1390845491459, "planificacao": "Entrega e correção da proba de avaliação sumativa.\nAutoavaliação." }
    ]
 }
