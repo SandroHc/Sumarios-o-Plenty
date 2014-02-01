@@ -4,10 +4,10 @@ import sandrohc.Main;
 import sandrohc.Sumario;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -20,7 +20,7 @@ public class GuiMain extends JFrame {
 	private byte[] maxDias = { 31, 28, 31, 30, 31, 30, 31, 30, 31, 30, 31, 30 };
 
 	private JPanel panel;
-	private JComboBox licoesField;
+	private JComboBox<String> licoesField;
 	private JLabel licoes;
 	private JLabel data;
 	private JComboBox<String> dataDia;
@@ -50,10 +50,16 @@ public class GuiMain extends JFrame {
 					atualizarSum(licoesField.getSelectedIndex());
 			}
 		});
-		btnSalvar.addMouseListener(new MouseAdapter() {
+		btnSalvar.addActionListener(new ActionListener() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void actionPerformed(ActionEvent e) {
 				salvarDados();
+			}
+		});
+		btnAdd.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				addSum();
 			}
 		});
 	}
@@ -91,9 +97,9 @@ public class GuiMain extends JFrame {
 
 	private void atualizarData() {
 		if(sum == null) {
-			dataDia = new JComboBox<>(new String[]{"1"});
-			dataMes = new JComboBox<>(new String[]{"1"});
-			dataAno = new JComboBox<>(new String[]{"1"});
+			dataDia = new JComboBox<>(new String[]{ "1" });
+			dataMes = new JComboBox<>(new String[]{ "1" });
+			dataAno = new JComboBox<>(new String[]{ "1" });
 			return;
 		}
 
@@ -103,9 +109,9 @@ public class GuiMain extends JFrame {
 		dataMes.setModel(new DefaultComboBoxModel<>(gerarArray(1, 12)));
 		dataAno.setModel(new DefaultComboBoxModel<>(gerarArray(2014, 2015)));
 
-		dataDia.setSelectedItem(obterDia(sum.data));
-		dataMes.setSelectedItem(mes + 1);
-		dataAno.setSelectedItem(obterAno(sum.data));
+		dataDia.setSelectedItem(String.valueOf(obterDia(sum.data)));
+		dataMes.setSelectedIndex(mes);
+		dataAno.setSelectedItem(String.valueOf(obterAno(sum.data)));
 	}
 
 	/**
@@ -134,10 +140,16 @@ public class GuiMain extends JFrame {
 		String[] lista = new String[LISTA.size()];
 		for(byte i = 0; i < LISTA.size(); i++) {
 			Sumario sum = LISTA.get(i);
-			lista[i] = Arrays.toString(sum.licoes).replace("[", "").replace("]", "");// + " - " + obterData(sum);
+			lista[i] = obterNome(sum);
 		}
 		System.out.println("Lista : " + Arrays.toString(lista));
 		return lista;
+	}
+
+	public String obterNome(Sumario sum) {
+		if(sum == null || sum.licoes == null)
+			return "??";
+		return Arrays.toString(sum.licoes).replace("[", "").replace("]", "");
 	}
 
 	private int obterDia(long data) {
@@ -179,16 +191,26 @@ public class GuiMain extends JFrame {
 	 */
 	private void atualizarSum(int index) {
 		// Previne dados inválida
-		if(index == -1 || index > LISTA.size())
+		if(index < 0 || index > LISTA.size())
 			return;
 
 		sumIndex = index;
 		sum = LISTA.get(index);
 
-		System.out.println(" - -- -- -- - ");
+		System.out.println(" - ------ - ");
 
 		populate();
-		revalidate();
+	}
+
+	/**
+	 * Adiciona um novo sumário
+	 */
+	private void addSum() {
+		Sumario novoSum = new Sumario(null, Calendar.getInstance().getTimeInMillis(), null);
+		LISTA.add(novoSum);
+		licoesField.addItem(obterNome(novoSum));
+
+		atualizarSum(LISTA.size() - 1);
 	}
 
 	/**
@@ -207,7 +229,11 @@ public class GuiMain extends JFrame {
 		String[] texto = licoesField.getSelectedItem().toString().split(", ");
 		short[] licoes = new short[texto.length];
 		for(int i = 0; i < texto.length; i++) {
-			licoes[i] = Short.parseShort(texto[i]);
+			try {
+				licoes[i] = Short.parseShort(texto[i]);
+			} catch(Exception e) {
+				licoes[i] = 0;
+			}
 		}
 		return licoes;
 	}
@@ -219,6 +245,8 @@ public class GuiMain extends JFrame {
 		cal.set(Calendar.MILLISECOND, 0);
 
 		System.out.println("Dia : " + dataDia.getSelectedItem());
+		System.out.println("Mês : " + dataMes.getSelectedItem());
+		System.out.println("Ano : " + dataAno.getSelectedItem());
 		cal.set(Calendar.DAY_OF_MONTH, Integer.valueOf((String) dataDia.getSelectedItem()));
 		cal.set(Calendar.MONTH, dataMes.getSelectedIndex());
 		cal.set(Calendar.YEAR, Integer.valueOf((String) dataAno.getSelectedItem()));
@@ -234,7 +262,6 @@ public class GuiMain extends JFrame {
 		sum.data = dataToMillis();
 		sum.planificacao = planificacao.getText();
 
-		Main.LISTA.remove(sumIndex);
 		Main.LISTA.set(sumIndex, sum);
 	}
 }
