@@ -29,9 +29,9 @@ public class GuiMain extends JFrame {
 	private JPanel curr;
 	private JTextArea planificacao;
 	private JButton btnAdd;
-	private JButton btnSalvar;
-	private JButton editarLicoes;
 	private JButton btnRem;
+	private JButton btnSalvar;
+	private JButton btnEditar;
 
 	Sumario sum;
 	private int sumIndex;
@@ -51,11 +51,10 @@ public class GuiMain extends JFrame {
 		licoesField.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent evt) {
-				if(evt.getStateChange() == ItemEvent.SELECTED)
-					atualizarSum(licoesField.getSelectedIndex());
+				if(evt.getStateChange() == ItemEvent.SELECTED) atualizarSum(licoesField.getSelectedIndex());
 			}
 		});
-		editarLicoes.addActionListener(new ActionListener() {
+		btnEditar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new GuiLicoes(sum != null ? sum.licoes : null);
@@ -101,9 +100,9 @@ public class GuiMain extends JFrame {
 			icons.add(ImageIO.read(Main.class.getResource("icon128.png")));
 		} catch(IOException e) {
 			e.printStackTrace();
+		} finally {
+			setIconImages(icons);
 		}
-
-		setIconImages(icons);
 
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -116,6 +115,12 @@ public class GuiMain extends JFrame {
 				}
 			}
 		});
+
+		// Adiciona ícones aos botões
+		btnAdd.setIcon(new ImageIcon(GuiMain.class.getResource("add.png")));
+		btnRem.setIcon(new ImageIcon(GuiMain.class.getResource("delete.png")));
+		btnSalvar.setIcon(new ImageIcon(GuiMain.class.getResource("save.png")));
+		btnEditar.setIcon(new ImageIcon(GuiMain.class.getResource("edit.png")));
 	}
 
 	/**

@@ -23,8 +23,6 @@ public class Main {
 		changeStyle();
 		createFile();
 
-		System.out.println(output.getAbsolutePath());
-
 		try {
 			// Cria o Object do JSON
 			JsonObject jObj = new JsonParser().parse(new JsonReader(new FileReader(output))).getAsJsonObject();

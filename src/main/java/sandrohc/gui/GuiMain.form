@@ -121,14 +121,6 @@
               <text value="Guardar"/>
             </properties>
           </component>
-          <component id="24c37" class="javax.swing.JButton" binding="editarLicoes">
-            <constraints>
-              <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Editar"/>
-            </properties>
-          </component>
           <component id="a86e2" class="javax.swing.JButton" binding="btnRem">
             <constraints>
               <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
@@ -137,6 +129,16 @@
             </constraints>
             <properties>
               <text value="Remover"/>
+            </properties>
+          </component>
+          <component id="24c37" class="javax.swing.JButton" binding="btnEditar">
+            <constraints>
+              <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <maximum-size width="25" height="25"/>
+              </grid>
+            </constraints>
+            <properties>
+              <text value=""/>
             </properties>
           </component>
         </children>
