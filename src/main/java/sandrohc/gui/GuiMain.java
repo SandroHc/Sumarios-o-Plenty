@@ -7,7 +7,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -96,10 +95,10 @@ public class GuiMain extends JFrame {
 
 		final List<Image> icons = new ArrayList<>();
 		try {
-			icons.add(ImageIO.read(new File("icon16.png")));
-			icons.add(ImageIO.read(new File("icon32.png")));
-			icons.add(ImageIO.read(new File("icon64.png")));
-			icons.add(ImageIO.read(new File("icon128.png")));
+			icons.add(ImageIO.read(Main.class.getResource("icon16.png")));
+			icons.add(ImageIO.read(Main.class.getResource("icon32.png")));
+			icons.add(ImageIO.read(Main.class.getResource("icon64.png")));
+			icons.add(ImageIO.read(Main.class.getResource("icon128.png")));
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
