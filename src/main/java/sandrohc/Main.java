@@ -7,7 +7,10 @@ import sandrohc.gui.GuiMain;
 import sandrohc.handlers.GsonHandler;
 
 import javax.swing.*;
-import java.io.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class Main {
@@ -20,11 +23,17 @@ public class Main {
 		changeStyle();
 		createFile();
 
-		// Cria o Object do JSON
-		JsonObject jObj = new JsonParser().parse(new JsonReader(new FileReader(output))).getAsJsonObject();
+		System.out.println(output.getAbsolutePath());
 
-		// Lê os todos os dados do Object e adiciona-os à Lista
-		GsonHandler.deserialize(jObj);
+		try {
+			// Cria o Object do JSON
+			JsonObject jObj = new JsonParser().parse(new JsonReader(new FileReader(output))).getAsJsonObject();
+
+			// Lê os todos os dados do Object e adiciona-os à Lista
+			GsonHandler.deserialize(jObj);
+		} catch(Exception ignored) { }
+
+
 
 		// Inicia a GUI
 		gui = new GuiMain(0);

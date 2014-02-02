@@ -3,14 +3,16 @@ package sandrohc.gui;
 import sandrohc.Main;
 import sandrohc.Sumario;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
+import java.util.List;
 
 import static sandrohc.Main.LISTA;
 import static sandrohc.Main.saveToFile;
@@ -84,14 +86,27 @@ public class GuiMain extends JFrame {
 	 * Cria a GUI
 	 */
 	public void run() {
-		JFrame frame = new JFrame("Sumários o' Plenty");
-		frame.setContentPane(panel);
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.pack();
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
+		setTitle("Sumários o' Plenty");
+		setContentPane(panel);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-		frame.addWindowListener(new WindowAdapter() {
+		pack();
+		setLocationRelativeTo(null);
+		setVisible(true);
+
+		final List<Image> icons = new ArrayList<>();
+		try {
+			icons.add(ImageIO.read(new File("icon16.png")));
+			icons.add(ImageIO.read(new File("icon32.png")));
+			icons.add(ImageIO.read(new File("icon64.png")));
+			icons.add(ImageIO.read(new File("icon128.png")));
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+
+		setIconImages(icons);
+
+		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				// Grava os dados da Lista no ficheiro JSON
