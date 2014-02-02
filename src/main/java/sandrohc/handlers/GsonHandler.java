@@ -6,9 +6,6 @@ import sandrohc.Main;
 import sandrohc.Sumario;
 
 import java.lang.reflect.Type;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.LinkedList;
 
 public class GsonHandler {
 	static Gson gson = new Gson();
@@ -21,12 +18,13 @@ public class GsonHandler {
 	}
 
 	public static JsonElement serialize() {
-		String json = "";
+		JsonArray array = new JsonArray();
 		for(Sumario sum : Main.LISTA)
-			json += gson.toJson(sum, type);
+			array.add(gson.toJsonTree(sum, type));
 
 		JsonObject result = new JsonObject();
-		result.add("sumarios", gson.toJsonTree(json));
+		result.add("sumarios", gson.toJsonTree(array));
+
 		return result;
 	}
 }

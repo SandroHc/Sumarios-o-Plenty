@@ -7,9 +7,7 @@ import sandrohc.gui.GuiMain;
 import sandrohc.handlers.GsonHandler;
 
 import javax.swing.*;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 public class Main {
@@ -19,9 +17,7 @@ public class Main {
 	public static void main(String[] args) throws IOException, UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException {
 		changeStyle();
 
-		if(!output.exists()) // If file doesn't exist, try to create one
-			if(!output.createNewFile()) // If the creating failed, throw a new Exception
-				throw new IOException("Unable to create the file " + output.getName() + ".");
+		createFile();
 
 		// Cria o Object do JSON
 		JsonObject jObj = new JsonParser().parse(new JsonReader(new FileReader(output))).getAsJsonObject();
@@ -31,9 +27,6 @@ public class Main {
 
 		// Inicia a GUI
 		new GuiMain(0);
-
-		// Grava os dados da Lista no JSON
-		GsonHandler.serialize();
 	}
 
 	/**
@@ -46,5 +39,19 @@ public class Main {
 	 */
 	public static void changeStyle() throws UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException {
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+	}
+
+	public static void createFile() throws IOException {
+		if(!output.exists()) // If file doesn't exist, try to create one
+			if(!output.createNewFile()) // If the creating failed, throw a new Exception
+				throw new IOException("Unable to create the file " + output.getName() + ".");
+	}
+
+	public static void saveToFile() throws IOException {
+		createFile();
+
+		PrintWriter writer = new PrintWriter(output);
+		writer.append(GsonHandler.serialize().toString());
+		writer.close();
 	}
 }

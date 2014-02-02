@@ -4,10 +4,8 @@ import sandrohc.Main;
 import sandrohc.Sumario;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.*;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -15,6 +13,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import static sandrohc.Main.LISTA;
+import static sandrohc.Main.saveToFile;
 
 public class GuiMain extends JFrame {
 	private byte[] maxDias = { 31, 28, 31, 30, 31, 30, 31, 30, 31, 30, 31, 30 };
@@ -74,6 +73,18 @@ public class GuiMain extends JFrame {
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+
+		frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent  e) {
+				// Grava os dados da Lista no ficheiro JSON
+				try {
+					saveToFile();
+				} catch(IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 	}
 
 	/**
