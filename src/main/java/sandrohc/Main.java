@@ -14,9 +14,10 @@ public class Main {
 	public static File output = new File("sumarios.json");
 	public static ArrayList<Sumario> LISTA = new ArrayList<>();
 
+	public static GuiMain gui;
+
 	public static void main(String[] args) throws IOException, UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException {
 		changeStyle();
-
 		createFile();
 
 		// Cria o Object do JSON
@@ -26,7 +27,7 @@ public class Main {
 		GsonHandler.deserialize(jObj);
 
 		// Inicia a GUI
-		new GuiMain(0);
+		gui = new GuiMain(0);
 	}
 
 	/**
