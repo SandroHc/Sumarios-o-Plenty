@@ -65,6 +65,7 @@
               </grid>
             </constraints>
             <properties>
+			  <font name="Arial"/>
               <opaque value="true"/>
               <text value=""/>
             </properties>
