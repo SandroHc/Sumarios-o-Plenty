@@ -109,6 +109,10 @@ public class GuiMain extends JFrame {
 			public void windowClosing(WindowEvent e) {
 				// Grava os dados da Lista no ficheiro JSON
 				try {
+					// Salva o sumário atual, caso tenha alteraç~~oes não salvas
+					salvarDados();
+
+					// Salva todos os dados no ficheiro
 					saveToFile();
 				} catch(IOException e1) {
 					e1.printStackTrace();
