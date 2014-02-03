@@ -78,6 +78,12 @@ public class GuiMain extends JFrame {
 				removerSum(sumIndex);
 			}
 		});
+
+		// Adiciona ícones aos botões
+		btnAdd.setIcon(new ImageIcon(GuiMain.class.getResource("add.png")));
+		btnRem.setIcon(new ImageIcon(GuiMain.class.getResource("delete.png")));
+		btnSalvar.setIcon(new ImageIcon(GuiMain.class.getResource("save.png")));
+		btnEditar.setIcon(new ImageIcon(GuiMain.class.getResource("edit.png")));
 	}
 
 	/**
@@ -119,12 +125,6 @@ public class GuiMain extends JFrame {
 				}
 			}
 		});
-
-		// Adiciona ícones aos botões
-		btnAdd.setIcon(new ImageIcon(GuiMain.class.getResource("add.png")));
-		btnRem.setIcon(new ImageIcon(GuiMain.class.getResource("delete.png")));
-		btnSalvar.setIcon(new ImageIcon(GuiMain.class.getResource("save.png")));
-		btnEditar.setIcon(new ImageIcon(GuiMain.class.getResource("edit.png")));
 	}
 
 	/**
@@ -256,10 +256,16 @@ public class GuiMain extends JFrame {
 		if(index < 0 || index > LISTA.size())
 			return;
 
-		sumIndex = index;
-		sum = LISTA.get(index);
+		// Verifica se o sumário que está a tentar abrir e diferente do atual
+		if(index != sumIndex) {
+			// Guarda os dados sempre que se altera o sumário
+			salvarDados();
 
-		populate();
+			sumIndex = index;
+			sum = LISTA.get(index);
+
+			populate();
+		}
 	}
 
 	/**
