@@ -1,8 +1,8 @@
-##Sumários 'o Plenty
-Projeto criado com o intuito de oferecer uma interface gráfica para a organização e armazenamento de sumários.
+##SumÃ¡rios o' Plenty
+Projeto criado com o intuito de oferecer uma interface grÃ¡fica para a organizaÃ§Ã£o e armazenamento de sumÃ¡rios.
 
 ####English
 Project created to help organize and store class planifications.
 
 ###License
-**Sumários 'o Plenty** is distributed under a [GPLv3](http://gplv3.fsf.org/) license.
+**SumÃ¡rios o' Plenty** is distributed under a [GPLv3](http://gplv3.fsf.org/) license.
