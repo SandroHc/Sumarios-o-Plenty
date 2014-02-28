@@ -37,6 +37,9 @@ public class GuiMain extends JFrame {
 	private int sumIndex;
 
 	public GuiMain(int index) {
+		System.out.println("Took " + (System.currentTimeMillis() - Main.time) + "ms - phase 3");
+		Main.time = System.currentTimeMillis();
+
 		if(LISTA.size() < 1)
 			addSum();
 
@@ -45,8 +48,11 @@ public class GuiMain extends JFrame {
 
 		populate();
 
-		// Mostra a GUI no final do cosntrutor
+		// Mostra a GUI no final do construtor
 		run();
+
+		System.out.println("Took " + (System.currentTimeMillis() - Main.time) + "ms - phase 4");
+		Main.time = System.currentTimeMillis();
 
 		licoesField.addItemListener(new ItemListener() {
 			@Override
@@ -84,6 +90,9 @@ public class GuiMain extends JFrame {
 		btnRem.setIcon(new ImageIcon(GuiMain.class.getResource("delete.png")));
 		btnSalvar.setIcon(new ImageIcon(GuiMain.class.getResource("save.png")));
 		btnEditar.setIcon(new ImageIcon(GuiMain.class.getResource("edit.png")));
+
+		System.out.println("Took " + (System.currentTimeMillis() - Main.time) + "ms - phase 5");
+		Main.time = System.currentTimeMillis();
 	}
 
 	/**
@@ -115,7 +124,7 @@ public class GuiMain extends JFrame {
 			public void windowClosing(WindowEvent e) {
 				// Grava os dados da Lista no ficheiro JSON
 				try {
-					// Salva o sumário atual, caso tenha alteraç~~oes não salvas
+					// Salva o sumário atual, caso tenha alterações não salvas
 					salvarDados();
 
 					// Salva todos os dados no ficheiro
@@ -252,6 +261,8 @@ public class GuiMain extends JFrame {
 	 * @param index posição na lista de sumários
 	 */
 	private void atualizarSum(int index) {
+		System.out.println("Alterando de sumário " + sumIndex + " para " + index);
+
 		// Previne dados inválida
 		if(index < 0 || index > LISTA.size())
 			return;
@@ -272,6 +283,8 @@ public class GuiMain extends JFrame {
 	 * Adiciona um novo sumário
 	 */
 	private void addSum() {
+		System.out.println("Adicionando novo sumário ");
+
 		Sumario novoSum = new Sumario(null, Calendar.getInstance().getTimeInMillis(), null);
 
 		// Tentativa de inteligência artificial
@@ -289,6 +302,8 @@ public class GuiMain extends JFrame {
 	 * @param index posição na lista de sumários
 	 */
 	private void removerSum(int index) {
+		System.out.println("Removendo sumário " + index);
+
 		int novoIndex = index - 1 > 0 ? index - 1 : 0;
 
 		if(index == 0)
@@ -325,7 +340,8 @@ public class GuiMain extends JFrame {
 		sum.data = dataToMillis();
 		sum.planificacao = planificacao.getText();
 
-		Main.LISTA.set(sumIndex, sum);
+		if(Main.LISTA.size() > sumIndex)
+			Main.LISTA.set(sumIndex, sum);
 	}
 
 	/**

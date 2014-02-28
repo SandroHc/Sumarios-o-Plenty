@@ -13,8 +13,8 @@ public class GsonHandler {
 
 	public static void deserialize(JsonElement json) throws JsonParseException {
 		JsonArray jArr = json.getAsJsonObject().get("sumarios").getAsJsonArray();
-		for(short i = 0; i < jArr.size(); i++)
-			Main.LISTA.add((Sumario) gson.fromJson(jArr.get(i).getAsJsonObject(), type));
+		for(JsonElement element : jArr)
+			Main.LISTA.add((Sumario) gson.fromJson(element.getAsJsonObject(), type));
 	}
 
 	public static JsonElement serialize() {
