@@ -63,7 +63,8 @@ public class GuiMain extends JFrame {
 		btnEditar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new GuiLicoes(sum != null ? sum.licoes : null);
+                if(sum == null) return;
+				new GuiLicoes(sum.licoes);
 			}
 		});
 		btnSalvar.addActionListener(new ActionListener() {
@@ -261,11 +262,13 @@ public class GuiMain extends JFrame {
 	 * @param index posição na lista de sumários
 	 */
 	private void atualizarSum(int index) {
+        if(sumIndex == index)
+            return;
+
 		System.out.println("Alterando de sumário " + sumIndex + " para " + index);
 
-		// Previne dados inválida
-		if(index < 0 || index > LISTA.size())
-			return;
+		// Faz com que um index válido esteja presente
+        index = Math.min(Math.max(index, 0), LISTA.size());
 
 		// Verifica se o sumário que está a tentar abrir e diferente do atual
 		if(index != sumIndex) {
@@ -280,10 +283,10 @@ public class GuiMain extends JFrame {
 	}
 
 	/**
-	 * Adiciona um novo sumário
+	 * Adiciona um sumário vazio à lista principal
 	 */
 	private void addSum() {
-		System.out.println("Adicionando novo sumário ");
+		System.out.println("Adicionando novo sumário");
 
 		Sumario novoSum = new Sumario(null, Calendar.getInstance().getTimeInMillis(), null);
 
@@ -304,13 +307,12 @@ public class GuiMain extends JFrame {
 	private void removerSum(int index) {
 		System.out.println("Removendo sumário " + index);
 
-		int novoIndex = index - 1 > 0 ? index - 1 : 0;
-
 		if(index == 0)
 			LISTA.clear();
 		else {
 			LISTA.remove(index);
 
+            int novoIndex = index - 1 > 0 ? index - 1 : 0;
 			atualizarSum(novoIndex);
 
 			// Atualiza a lista de lições
