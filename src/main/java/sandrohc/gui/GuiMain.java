@@ -33,7 +33,7 @@ public class GuiMain extends JFrame {
 	private JButton btnSalvar;
 	private JButton btnEditar;
 
-	Sumario sum;
+	public Sumario sum;
 	private int sumIndex;
 
 	public GuiMain(int index) {
@@ -162,15 +162,15 @@ public class GuiMain extends JFrame {
 			dataMes = new JComboBox<>(new String[]{ "1" });
 			dataAno = new JComboBox<>(new String[]{ "1" });
 		} else {
-			int mes = obterMes(sum.data);
+            Data data = new Data(sum.data);
 
-			dataDia.setModel(new DefaultComboBoxModel<>(gerarArray(1, maxDias[mes])));
+			dataDia.setModel(new DefaultComboBoxModel<>(gerarArray(1, maxDias[data.mes])));
 			dataMes.setModel(new DefaultComboBoxModel<>(gerarArray(1, 12)));
 			dataAno.setModel(new DefaultComboBoxModel<>(gerarArray(2014, 2015)));
 
-			dataDia.setSelectedItem(String.valueOf(obterDia(sum.data)));
-			dataMes.setSelectedIndex(mes);
-			dataAno.setSelectedItem(String.valueOf(obterAno(sum.data)));
+			dataDia.setSelectedItem(String.valueOf(data.dia));
+			dataMes.setSelectedIndex(data.mes);
+			dataAno.setSelectedItem(String.valueOf(data.ano));
 		}
 	}
 
@@ -203,7 +203,7 @@ public class GuiMain extends JFrame {
 		String[] lista = new String[LISTA.size()];
 		for(byte i = 0; i < LISTA.size(); i++) {
 			Sumario sum = LISTA.get(i);
-			lista[i] = licoesToStr(sum);
+			lista[i] = licoesToStr(sum) + "   M" + obterModulo(sum);
 		}
 		return lista;
 	}
@@ -227,34 +227,26 @@ public class GuiMain extends JFrame {
 		return Arrays.toString(sum.licoes).replace("[", "").replace("]", "");
 	}
 
-	public int obterDia(long data) {
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(new Date(data));
-		return cal.get(Calendar.DAY_OF_MONTH);
-	}
+    public static class Data {
+        Calendar cal = null;
+        int dia = 0;
+        int mes = 0;
+        int ano = 0;
 
-	public int obterMes(long data) {
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(new Date(data));
-		return cal.get(Calendar.MONTH);
-	}
+        public Data(long data) {
+            cal = Calendar.getInstance();
+            cal.setTime(new Date(data));
 
-	public int obterAno(long data) {
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(new Date(data));
-		return cal.get(Calendar.YEAR);
-	}
+            dia = cal.get(Calendar.DAY_OF_MONTH);
+            mes = cal.get(Calendar.MONTH);
+            ano = cal.get(Calendar.YEAR);
+        }
 
-	public String obterData(Sumario sum) {
-		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-
-		Calendar cal = Calendar.getInstance();
-		if(sum != null)
-			cal.setTime(new Date(sum.data));
-		else
-			System.out.println("Sumário não contém uma data válida, usando a data atual.");
-		return dateFormat.format(cal.getTime());
-	}
+        public String obterData() {
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            return dateFormat.format(cal.getTime());
+        }
+    }
 
 	/**
 	 * Altera o sumário para o encontrado na posição passada nos argumentos
@@ -288,10 +280,10 @@ public class GuiMain extends JFrame {
 	private void addSum() {
 		System.out.println("Adicionando novo sumário");
 
-		Sumario novoSum = new Sumario(null, Calendar.getInstance().getTimeInMillis(), null);
+		Sumario novoSum = new Sumario(null, obterModulo(sum), Calendar.getInstance().getTimeInMillis(), null);
 
 		// Tentativa de inteligência artificial
-		novoSum.licoes = gerarProxLicoes();
+		novoSum.licoes = obterProxLicoes();
 
 		LISTA.add(novoSum);
 		licoesField.addItem(licoesToStr(novoSum));
@@ -336,14 +328,18 @@ public class GuiMain extends JFrame {
 
 	void salvarDados() {
 		if(sum == null)
-			sum = new Sumario(null, 0, null);
+			return;
 
 		sum.licoes = licoesToArr();
 		sum.data = dataToMillis();
 		sum.planificacao = planificacao.getText();
 
+        System.out.println("Salvando sumário " + Arrays.toString(sum.licoes) + " (de " + new Data(sum.data).obterData() + ") no index " + sumIndex);
+
 		if(Main.LISTA.size() > sumIndex)
 			Main.LISTA.set(sumIndex, sum);
+        else
+            Main.LISTA.add(sumIndex, sum);
 	}
 
 	/**
@@ -351,15 +347,25 @@ public class GuiMain extends JFrame {
 	 *
 	 * @return array com as lições
 	 */
-	private short[] gerarProxLicoes() {
-		short ultima;
-		if(LISTA.size() > 0) {
+	private short[] obterProxLicoes() {
+		short ultima = 0;
+		if(LISTA != null && !LISTA.isEmpty()) {
 			short[] ultimas = LISTA.get(LISTA.size() - 1).licoes;
 			ultima = ultimas[ultimas.length - 1];
-		} else {
-			ultima = 0;
 		}
 
 		return new short[]{ (short) (ultima + 1), (short) (ultima + 2) };
 	}
+
+    private int obterModulo(Sumario sum) {
+        int modulo = 1;
+
+        if(sum == null || LISTA == null || LISTA.isEmpty())
+            return modulo;
+
+            if(sum != null && sum.modulo > 0)
+                modulo = sum.modulo;
+
+        return modulo;
+    }
 }

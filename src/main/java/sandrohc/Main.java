@@ -36,7 +36,9 @@ public class Main {
 
 			// Lê os todos os dados do Object e adiciona-os à Lista
 			GsonHandler.deserialize(jObj);
-		} catch(Exception ignored) { }
+		} catch(Exception e) {
+            e.printStackTrace();
+        }
 
 		System.out.println("Took " + (System.currentTimeMillis() - time) + "ms - phase 2");
 		time = System.currentTimeMillis();
