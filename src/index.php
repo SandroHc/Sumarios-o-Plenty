@@ -10,7 +10,9 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
 </head>
 <body>
+<div id="header-bg"></div>
 <div class="container">
+	<?php include('header.php') ?>
 	<div class="alerts">
 		<?php
 			if(isSet($_SESSION["succ"])) {
@@ -31,7 +33,6 @@
 			}
 		?>
 	</div>
-	<?php include('header.php') ?>
 	<div>
 		<?php
 			startConnection();
@@ -54,7 +55,7 @@
 				<td class='centered'>". $row['modulo'] ."</td>
 				<td>". htmlspecialchars_decode($row['planificacao']) ."</td>
 				<td class='centered'>". $row['data'] ."</td>
-				<td class='centered'><span class='badge' data-toggle='modal' data-target='#addLicao' onClick='alterar(\"". $row['licao'] ."\", \"". $row['disciplina'] ."\", \"". $row['modulo'] ."\", \"". $row['planificacao'] ."\", \"". $row['data'] ."\")'><span class='glyphicon glyphicon-pencil'></span></span><span class='badge' onClick='remover(". $row['licao'] .")'><span class='glyphicon glyphicon-minus'></span></span></td>
+				<td class='centered'><span class='badge hyperlink' data-toggle='modal' data-target='#addLicao' onClick=\"alterar('". $row['licao'] ."', '". $row['disciplina'] ."', '". $row['modulo'] ."', '". preg_replace("/\r\n|\r|\n/",'<br/>',$row['planificacao']) ."', '". $row['data'] ."')\"><span class='glyphicon glyphicon-pencil'></span></span><span class='badge hyperlink' onClick='remover(". $row['licao'] .")'><span class='glyphicon glyphicon-trash'></span></span></td>
 				</tr>";
 			}
 			echo "</table>";
@@ -72,7 +73,7 @@
 					<h4 class="modal-title">Adicionar Sumário</h4>
 				</div>
 				<div class="modal-body">
-					<form action="db/add.php" method="POST" name="addLicaoForm">
+					<form action="db/add.php" method="POST" name="form">
 						<input type="hidden" name="update" id="update" class="form-control" value="" required>
 						<div class="input-group">
 							<span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
@@ -80,25 +81,34 @@
 						</div>
 						<div class="input-group">
 							<span class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></span>
-							<input type="number" name="disciplina" id="disciplina" class="form-control" placeholder="Disciplina (ID)" required>
+							<select name="disciplina" class="form-control" required>
+								<option value="1">Programação de Sistemas Informáticos</option>
+							</select>
 						</div>
 						<div class="input-group">
 							<span class="input-group-addon"><span class="glyphicon glyphicon-tags"></span></span>
-							<input type="number" name="modulo" id="modulo" class="form-control" placeholder="Módulo">
+							<select name="modulo" class="form-control" required>
+								<?php
+									$max = 10;
+									for($i=1; $i <= $max; $i++)
+										echo "<option ". ($i == $max ? "selected " : "") ."value='$i'>$i</option>";
+								?>
+							</select>
 						</div>
 						<div class="input-group">
 							<span class="input-group-addon"><span class="glyphicon glyphicon-font"></span></span>
-							<textarea name="planificacao" id="planificacao" class="form-control" placeholder="Planificação" required></textarea>
+							<textarea name="planificacao" id="planificacao" class="form-control" style="height: 150px" placeholder="Planificação" required></textarea>
 						</div>
 						<div class="input-group">
 							<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
 							<input type="datetime" name="data" id="data" class="form-control" placeholder="Data">
+							<span class="input-group-addon hyperlink" onClick="setTodayDate()">Agora</span>
 						</div>
 					</form>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-					<button type="button" class="btn btn-primary" onClick="document.addLicaoForm.submit()">Adicionar</button>
+					<button type="button" class="btn btn-primary" onClick="document.form.submit()">Adicionar</button>
 				</div>
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
@@ -116,12 +126,16 @@
 			window.location.href = "login.php";
 	}
 
+	function escapeRegExp(string) {
+		return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+	}
+
 	function alterar(licao, disciplina, modulo, planificacao, data) {
-		if(isLogged) {
+		if(isLogged || true) {
 			$('#licao').val(licao);
 			$('#disciplina').val(disciplina);
 			$('#modulo').val(modulo);
-			$('#planificacao').val(planificacao);
+			$('#planificacao').val(planificacao.replace(new RegExp(escapeRegExp('<br/>'), 'g'), '\n'));
 			$('#data').val(data);
 			$('#update').val("true");
 		} else
@@ -129,8 +143,20 @@
 	}
 
 	function limparForm() {
-		document.addLicaoForm.reset();
+		document.form.reset();
 		$('#update').val("");
+		setTodayDate();
+	}
+
+	function setTodayDate() {
+		var date = new Date();
+		var y = date.getFullYear();
+		var m = date.getMonth();
+		var d = date.getDay();
+		if(m < 10) m = '0' + m;
+		if(d < 10) d = '0' + d;
+
+		$('#data').val(y + '-' + m + '-' + d);
 	}
 </script>
 </body>

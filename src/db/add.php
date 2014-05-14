@@ -1,7 +1,7 @@
 <?php
 	include('../config.php');
 
-	if(!isSet($_SESSION["login"])) {
+	if(!isSet($_SESSION["login"]) && false) {
 		header("Location: ../login.php");
 		die();
 	}
@@ -29,7 +29,7 @@
 			echo "Erro: ". $con->error;
 		endConnection();
 
-		$_SESSION["succ"] = "Lição adicionada com sucesso. ". $query . "|" . $update;
+		$_SESSION["succ"] = "Lição adicionada com sucesso.";
 	}
 
 	header("Location: ../index.php");

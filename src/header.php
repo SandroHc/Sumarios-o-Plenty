@@ -4,10 +4,7 @@
 		Disciplinas
 		<ul>
 			<li>
-				Disciplina 1
-			</li>
-			<li>
-				Disciplina 2
+				Programação de Sistemas Informáticos
 			</li>
 		</ul>
 	</li>
