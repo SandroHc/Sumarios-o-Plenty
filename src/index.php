@@ -49,13 +49,14 @@
 			</thead>";
 			while($row = mysqli_fetch_array($result)) {
 				//print_r($row);
+				$plan = preg_replace("/\r\n|\r|\n/",'<br/>',$row['planificacao']);
 				echo "<tr>
 				<td class='centered'>". $row['licao'] ."</td>
 				<td class='centered'>". $row['disciplina'] ."</td>
 				<td class='centered'>". $row['modulo'] ."</td>
-				<td>". htmlspecialchars_decode($row['planificacao']) ."</td>
+				<td>". htmlspecialchars_decode($plan) ."</td>
 				<td class='centered'>". $row['data'] ."</td>
-				<td class='centered'><span class='badge hyperlink' data-toggle='modal' data-target='#addLicao' onClick=\"alterar('". $row['licao'] ."', '". $row['disciplina'] ."', '". $row['modulo'] ."', '". preg_replace("/\r\n|\r|\n/",'<br/>',$row['planificacao']) ."', '". $row['data'] ."')\"><span class='glyphicon glyphicon-pencil'></span></span><span class='badge hyperlink' onClick='remover(". $row['licao'] .")'><span class='glyphicon glyphicon-trash'></span></span></td>
+				<td class='centered'><span class='badge hyperlink' data-toggle='modal' data-target='#addLicao' onClick=\"alterar('". $row['licao'] ."', '". $row['disciplina'] ."', '". $row['modulo'] ."', '$plan', '". $row['data'] ."')\"><span class='glyphicon glyphicon-pencil'></span></span><span class='badge hyperlink' onClick='remover(". $row['licao'] .")'><span class='glyphicon glyphicon-trash'></span></span></td>
 				</tr>";
 			}
 			echo "</table>";
