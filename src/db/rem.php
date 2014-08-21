@@ -1,8 +1,8 @@
 <?php
 	include('../config.php');
 
-	if(!isSet($_SESSION["login"])) {
-		header("Location: ../login.php");
+	if(!isSet($_SESSION["isAuth"])) {
+		redirect("../login.php");
 		die();
 	}
 
@@ -11,16 +11,17 @@
 	$name = get("name");
 
 	if(!isSet($name)) {
-		$_SESSION["err"] = "Impossível remover lição";
+		$_SESSION["alert"] = "danger";
+		$_SESSION["alert_desc"] = "Impossível remover lição.";
 	} else {
 		$query = "DELETE FROM $db_database.licoes WHERE licao='". $name ."'";
 
-		startConnection();
+		$con = startConnection();
 		if(!mysqli_query($con, $query))
 			echo "Erro: ". $con->error;
-		endConnection();
 
-		$_SESSION["succ"] = "Lição removida com sucesso";
+		$_SESSION["alert"] = "success";
+		$_SESSION["alert_desc"] = "Lição removida com sucesso.";
 	}
 
-	header("Location: ../index.php");
+	redirect("../index.php");

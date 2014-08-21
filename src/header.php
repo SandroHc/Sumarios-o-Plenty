@@ -6,7 +6,8 @@
 			<li>
 				Programação de Sistemas Informáticos
 			</li>
+			<li><?php echo ($_SESSION["isAuth"] ? "Sessão iniciada" : "Sessão não iniciada") ?></li>
 		</ul>
 	</li>
-	<li data-toggle="modal" data-target="#addLicao" onClick="limparForm()"><span class="glyphicon glyphicon-plus"></span></li>
+	<li data-toggle="modal" data-target="#addLicao" onClick="formClear()"><span class="glyphicon glyphicon-plus"></span></li>
 </ul>

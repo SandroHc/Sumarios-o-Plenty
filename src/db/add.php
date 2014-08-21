@@ -1,35 +1,36 @@
 <?php
 	include('../config.php');
 
-	if(!isSet($_SESSION["login"]) && false) {
-		header("Location: ../login.php");
+	if(!isSet($_SESSION["isAuth"])) {
+		redirect("../login.php");
 		die();
 	}
-
-	global $con,$db_database;
 
 	$licao = get("licao");
 	$disciplina = get("disciplina");
 	$modulo = get("modulo");
 	$planificacao = get("planificacao");
-	$data = get("data");
+	$data = get("data_mysql");
 
 	$update = get("update");
 
 	if(!isSet($licao) || !isSet($disciplina) || !isSet($planificacao)) {
-		$_SESSION["err"] = "Impossível adicionar lição";
+		$_SESSION["alert"] = "danger";
+		$_SESSION["alert_desc"] = "Impossível adicionar lição";
 	} else {
+		global $db_database;
+
 		if($update)
 			$query = "UPDATE $db_database.licoes SET licao=\"". $licao ."\", disciplina=". $disciplina .", modulo=\"". $modulo ."\", planificacao=\"". htmlspecialchars($planificacao) ."\", data=\"". $data ."\" WHERE licao=\"". $licao ."\"";
 		else
 			$query = "INSERT INTO $db_database.licoes (licao, disciplina, modulo, planificacao, data) VALUES (\"". $licao ."\", ". $disciplina .", \"". $modulo ."\", \"". htmlspecialchars($planificacao) ."\", \"". $data ."\")";
 
-		startConnection();
+		$con = startConnection();
 		if(!mysqli_query($con, $query))
 			echo "Erro: ". $con->error;
-		endConnection();
 
-		$_SESSION["succ"] = "Lição adicionada com sucesso.";
+		$_SESSION["alert"] = "success";
+		$_SESSION["alert_desc"] = "Lição adicionada com sucesso.";
 	}
 
-	header("Location: ../index.php");
+	redirect("../index.php");

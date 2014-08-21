@@ -15,29 +15,13 @@
 	<?php include('header.php') ?>
 	<div class="alerts">
 		<?php
-			if(isSet($_SESSION["succ"])) {
-				createAlert("success", "Sucesso!", $_SESSION["succ"]);
-				$_SESSION["succ"] = NULL;
-			}
-			if(isSet($_SESSION["info"])) {
-				createAlert("info", "Informação", $_SESSION["info"]);
-				$_SESSION["info"] = NULL;
-			}
-			if(isSet($_SESSION["warn"])) {
-				createAlert("warning", "Aviso!", $_SESSION["warn"]);
-				$_SESSION["warn"] = NULL;
-			}
-			if(isSet($_SESSION["err"])) {
-				createAlert("danger", "Atenção!", $_SESSION["err"]);
-				$_SESSION["err"] = NULL;
-			}
+			if(isSet($_SESSION["alert"])) createAlert($_SESSION["alert"], $_SESSION["alert_desc"]);
 		?>
 	</div>
 	<div>
 		<?php
-			startConnection();
-			global $con;
-			$query = "SELECT * FROM $db_database.licoes ORDER BY 'licao' ASC";
+			$con = startConnection();
+			$query = "SELECT * FROM $db_database.licoes ORDER BY 'data' DESC";
 			$result = mysqli_query($con, $query) or die ("Erro: ". $con->error);
 			echo "<table class='table'><thead class='centered'>
 			<td style='width:5%'><span class='glyphicon glyphicon-asterisk' data-toggle='tooltip' data-placement='top' title='Lição'></span></td>
@@ -50,18 +34,20 @@
 			while($row = mysqli_fetch_array($result)) {
 				//print_r($row);
 				$plan = preg_replace("/\r\n|\r|\n/",'<br/>',$row['planificacao']);
+				$date = new DateTime($row['data']);
+				//$date->setTimezone(new DateTimeZone('Europe/Lisbon'));
 				echo "<tr>
 				<td class='centered'>". $row['licao'] ."</td>
 				<td class='centered'>". $row['disciplina'] ."</td>
 				<td class='centered'>". $row['modulo'] ."</td>
 				<td>". htmlspecialchars_decode($plan) ."</td>
-				<td class='centered'>". $row['data'] ."</td>
-				<td class='centered'><span class='badge hyperlink' data-toggle='modal' data-target='#addLicao' onClick=\"alterar('". $row['licao'] ."', '". $row['disciplina'] ."', '". $row['modulo'] ."', '$plan', '". $row['data'] ."')\"><span class='glyphicon glyphicon-pencil'></span></span><span class='badge hyperlink' onClick='remover(". $row['licao'] .")'><span class='glyphicon glyphicon-trash'></span></span></td>
+				<td class='centered'>". $date->format('d/m/Y') ."</td>
+				<td class='centered'><span class='badge hyperlink' data-toggle='modal' data-target='#addLicao' onClick=\"alterar('". $row['licao'] ."', '". $row['disciplina'] ."', '". $row['modulo'] ."', '$plan', '". $date->format('d/m/Y') ."')\"><span class='glyphicon glyphicon-pencil'></span></span><span class='badge hyperlink' onClick='remover(". $row['licao'] .")'><span class='glyphicon glyphicon-trash'></span></span></td>
 				</tr>";
 			}
 			echo "</table>";
 			mysqli_free_result($result);
-			endConnection();
+			mysqli_close($con);
 		?>
 	</div>
 
@@ -74,7 +60,7 @@
 					<h4 class="modal-title">Adicionar Sumário</h4>
 				</div>
 				<div class="modal-body">
-					<form action="db/add.php" method="POST" name="form">
+					<form action="db/add.php" method="POST" name="add">
 						<input type="hidden" name="update" id="update" class="form-control" value="" required>
 						<div class="input-group">
 							<span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
@@ -102,14 +88,15 @@
 						</div>
 						<div class="input-group">
 							<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
-							<input type="datetime" name="data" id="data" class="form-control" placeholder="Data">
-							<span class="input-group-addon hyperlink" onClick="setTodayDate()">Agora</span>
+							<input type="datetime" name="data" id="data" class="form-control" placeholder="Data" onKeyPress="updateMysqlDate()">
+							<input type="text" name="data_mysql" id="data_mysql" required hidden>
+							<span class="input-group-addon hyperlink" onClick="setCurrentDate()">Agora</span>
 						</div>
 					</form>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-					<button type="button" class="btn btn-primary" onClick="document.form.submit()">Adicionar</button>
+					<button type="button" class="btn btn-primary" onClick="document.add.submit()">Adicionar</button>
 				</div>
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
@@ -118,13 +105,22 @@
 <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <script>
-	var isLogged = <?php echo (isSet($_SESSION["login"]) ? "true" : "false") ?>;
+	function twoDigits(d) {
+		if(0 <= d && d < 10) return "0" + d.toString();
+		if(-10 < d && d < 0) return "-0" + (-1*d).toString();
+		return d.toString();
+	}
+
+	Date.prototype.toMysqlFormat = function() {
+		return this.getFullYear() + "-" + twoDigits(this.getMonth() + 1) + "-" + twoDigits(this.getDate()) + " " + twoDigits(this.getHours()) + ":" + twoDigits(this.getMinutes()) + ":" + twoDigits(this.getSeconds());
+	};
+
+	Date.prototype.toFormattedDate = function() {
+		return twoDigits(this.getDate()) + "/" + twoDigits((this.getMonth() + 1)) + "/" + this.getFullYear();
+	};
 
 	function remover(nome) {
-		if(isLogged)
-			window.location.href = "db/rem.php?name=" + nome;
-		else
-			window.location.href = "login.php";
+		window.location.href = "db/rem.php?name=" + nome;
 	}
 
 	function escapeRegExp(string) {
@@ -133,31 +129,31 @@
 
 	function alterar(licao, disciplina, modulo, planificacao, data) {
 		if(isLogged || true) {
-			$('#licao').val(licao);
-			$('#disciplina').val(disciplina);
-			$('#modulo').val(modulo);
-			$('#planificacao').val(planificacao.replace(new RegExp(escapeRegExp('<br/>'), 'g'), '\n'));
-			$('#data').val(data);
-			$('#update').val("true");
+			document.add.licao.value = licao;
+			document.add.disciplina.value = disciplina;
+			document.add.modulo.value = modulo;
+			document.add.planificacao.value = planificacao.replace(new RegExp(escapeRegExp('<br/>'), 'g'), '\n');
+			document.add.data.value = data;
+			document.add.update.value = "true";
+			updateMysqlDate();
 		} else
 			window.location.href = "login.php";
 	}
 
-	function limparForm() {
-		document.form.reset();
-		$('#update').val("");
-		setTodayDate();
+	function formClear() {
+		document.add.reset();
+		document.add.update.value = "";
+		setCurrentDate();
 	}
 
-	function setTodayDate() {
-		var date = new Date();
-		var y = date.getFullYear();
-		var m = date.getMonth();
-		var d = date.getDay();
-		if(m < 10) m = '0' + m;
-		if(d < 10) d = '0' + d;
+	function setCurrentDate() {
+		document.add.data.value = new Date().toFormattedDate();
+		updateMysqlDate();
+	}
 
-		$('#data').val(y + '-' + m + '-' + d);
+	function updateMysqlDate() {
+		var from = document.add.data.value.split("/");
+		document.add.data_mysql.value = new Date(from[2], from[1] - 1, from[0]).toMysqlFormat();
 	}
 </script>
 </body>

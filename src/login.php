@@ -1,11 +1,19 @@
 <!doctype html>
 <?php
 	require('config.php');
-	if(isSet($_SESSION["login"]) || (isSet($_POST["pass"]) && $_POST["pass"] == 'eva-\'2')) {
-		$_SESSION["login"] = true;
-		echo '<meta http-equiv="Refresh" Content="0; URL=index.php">';
-		//header("Location: index.php");
+
+	if(isSet($_SESSION["isAuth"])) {
+		redirect("index.php");
 		die();
+	}
+
+	if(isSet($_POST["pass"])) {
+		if($_POST["pass"] === 'eva-\'2') {
+			$_SESSION["isAuth"] = true;
+			redirect("index.php");
+			die();
+		} else
+			echo "Senha incorreta.";
 	}
 ?>
 <html>
